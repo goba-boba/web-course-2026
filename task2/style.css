@@ -1,0 +1,277 @@
+/* ========== БАЗОВЫЕ НАСТРОЙКИ (Mobile First) ========== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fcf8fa; /* Очень светлый розовый фон */
+}
+
+.container {
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+/* ========== ШАПКА (Flexbox) ========== */
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(214, 51, 132, 0.1);
+    padding: 15px 0;
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between; /* Flexbox */
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #d63384; /* Розовый цвет */
+    text-decoration: none;
+}
+
+/* Гамбургер (виден только на мобильных) */
+.burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.burger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #d63384;
+    border-radius: 3px;
+    transition: 0.3s; /* Плавный переход */
+}
+
+/* Навигация скрыта на мобильных */
+.nav {
+    display: none; 
+}
+
+/* ========== ГЕРОЙ-СЕКЦИЯ ========== */
+.hero {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #f8e1eb; /* Нежный розовый */
+}
+
+.hero__title {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #4a2c3a;
+}
+
+.hero__text {
+    margin-bottom: 25px;
+    color: #6c525d;
+}
+
+/* ========== КНОПКИ И ПЕРЕХОДЫ ========== */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #d63384;
+    color: #fff;
+    border: none;
+    border-radius: 25px; /* Более округлые кнопки */
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    min-height: 44px; /* Touch-friendly */
+    min-width: 44px;
+    transition: background-color 0.3s, transform 0.3s; /* Плавный переход */
+}
+
+.btn:hover {
+    background-color: #b02a6c;
+    transform: scale(1.05); /* Эффект увеличения */
+}
+
+.btn:focus {
+    outline: 2px solid #b02a6c;
+    outline-offset: 2px;
+}
+
+/* ========== СЕТКА УСЛУГ (CSS GRID) ========== */
+.services {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    color: #4a2c3a;
+}
+
+.services__grid {
+    display: grid; /* CSS Grid */
+    grid-template-columns: 1fr; /* 1 колонка на мобильных */
+    gap: 20px; /* Отступы */
+}
+
+.card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(214, 51, 132, 0.08);
+    text-align: center;
+    transition: transform 0.3s; /* Плавный переход для карточки */
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.card__icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.card__title {
+    margin-bottom: 10px;
+    color: #4a2c3a;
+}
+
+.card__text {
+    color: #6c525d;
+    font-size: 0.95rem;
+}
+
+/* ========== ФОРМА ========== */
+.contact {
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form__input,
+.form__textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #f0d5e0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    min-height: 44px; /* Touch-friendly */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #fcf8fa;
+}
+
+.form__textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Состояния :hover и :focus для полей */
+.form__input:hover,
+.form__textarea:hover {
+    border-color: #d63384;
+}
+
+.form__input:focus,
+.form__textarea:focus {
+    border-color: #d63384;
+    outline: none;
+    box-shadow: 0 0 8px rgba(214, 51, 132, 0.2);
+    background-color: #ffffff;
+}
+
+.btn--form {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* ========== ПОДВАЛ ========== */
+.footer {
+    padding: 20px 0;
+    text-align: center;
+    background-color: #4a2c3a;
+    color: #f8e1eb;
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   МЕДИАЗАПРОСЫ (Только min-width!)
+   ========================================= */
+
+/* Планшет (768px и выше) */
+@media (min-width: 768px) {
+    .header__container {
+        padding: 0 30px;
+    }
+
+    /* Прячем гамбургер, показываем меню */
+    .burger {
+        display: none;
+    }
+
+    .nav {
+        display: block;
+    }
+
+    .nav__list {
+        display: flex;
+        gap: 25px;
+        list-style: none;
+    }
+
+    .nav__link {
+        text-decoration: none;
+        color: #4a2c3a;
+        font-weight: 600;
+        transition: color 0.3s;
+    }
+
+    .nav__link:hover {
+        color: #d63384;
+    }
+
+    /* Сетка на планшете: 2 колонки */
+    .services__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero__title {
+        font-size: 2.5rem;
+    }
+}
+
+/* Десктоп (от 1200px) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px; /* Ограничиваем ширину контента */
+    }
+
+    /* Сетка на десктопе: 3 колонки */
+    .services__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .hero {
+        padding: 100px 0;
+    }
+
+    .hero__title {
+        font-size: 3rem;
+    }
+}

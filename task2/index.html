@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NailStudio — Студия маникюра</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="#" class="logo">NailStudio 💅</a>
+            
+            <!-- Гамбургер (только для мобильных, CSS) -->
+            <div class="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Навигация -->
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="#services" class="nav__link">Услуги</a></li>
+                    <li><a href="#about" class="nav__link">О нас</a></li>
+                    <li><a href="#contact" class="nav__link">Запись</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Герой-секция -->
+        <section class="hero">
+            <div class="container hero__container">
+                <h1 class="hero__title">Твой идеальный маникюр</h1>
+                <p class="hero__text">Профессиональный уход, стерильность и современный дизайн в одном месте.</p>
+                <button class="btn">Записаться онлайн</button>
+            </div>
+        </section>
+
+        <!-- Сетка услуг (Grid) -->
+        <section id="services" class="services">
+            <div class="container">
+                <h2 class="section-title">Наши услуги</h2>
+                <div class="services__grid">
+                    <!-- Карточка 1 -->
+                    <article class="card">
+                        <div class="card__icon">💅</div>
+                        <h3 class="card__title">Классический маникюр</h3>
+                        <p class="card__text">Аккуратная обработка кутикулы и покрытие гель-лаком любого цвета.</p>
+                    </article>
+                    <!-- Карточка 2 -->
+                    <article class="card">
+                        <div class="card__icon">👠</div>
+                        <h3 class="card__title">Педикюр</h3>
+                        <p class="card__text">Комплексный уход за стопами, удаление мозолей и покрытие.</p>
+                    </article>
+                    <!-- Карточка 3 -->
+                    <article class="card">
+                        <div class="card__icon">✨</div>
+                        <h3 class="card__title">Дизайн и наращивание</h3>
+                        <p class="card__text">Авторские росписи, стразы, градиенты и укрепление ногтей.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Форма обратной связи -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Записаться на процедуру</h2>
+                <form class="form">
+                    <input type="text" placeholder="Ваше имя" class="form__input" required>
+                    <input type="tel" placeholder="Ваш телефон" class="form__input" required>
+                    <textarea placeholder="Пожелания к дизайну (необязательно)" class="form__textarea"></textarea>
+                    <!-- action и JS не нужны по заданию -->
+                    <button type="button" class="btn btn--form">Отправить заявку</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 NailStudio. Красота в деталях.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
