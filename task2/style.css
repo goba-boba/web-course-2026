@@ -9,7 +9,12 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #fcf8fa; /* Очень светлый розовый фон */
+    background-color: #fcf8fa;
+}
+
+img {
+    max-width: 100%;
+    display: block;
 }
 
 .container {
@@ -23,22 +28,24 @@ body {
     background-color: #ffffff;
     box-shadow: 0 2px 5px rgba(214, 51, 132, 0.1);
     padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .header__container {
     display: flex;
-    justify-content: space-between; /* Flexbox */
+    justify-content: space-between;
     align-items: center;
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #d63384; /* Розовый цвет */
+    color: #d63384;
     text-decoration: none;
 }
 
-/* Гамбургер (виден только на мобильных) */
 .burger {
     display: flex;
     flex-direction: column;
@@ -52,19 +59,23 @@ body {
     height: 3px;
     background-color: #d63384;
     border-radius: 3px;
-    transition: 0.3s; /* Плавный переход */
+    transition: 0.3s;
 }
 
-/* Навигация скрыта на мобильных */
 .nav {
     display: none; 
 }
 
 /* ========== ГЕРОЙ-СЕКЦИЯ ========== */
 .hero {
-    padding: 60px 0;
+    padding: 80px 0;
     text-align: center;
-    background-color: #f8e1eb; /* Нежный розовый */
+    background-color: #f8e1eb;
+    /* Фоновая картинка с полупрозрачным розовым градиентом поверх */
+    background-image: linear-gradient(rgba(248, 225, 235, 0.85), rgba(248, 225, 235, 0.85)), url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .hero__title {
@@ -85,18 +96,18 @@ body {
     background-color: #d63384;
     color: #fff;
     border: none;
-    border-radius: 25px; /* Более округлые кнопки */
+    border-radius: 25px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
-    min-height: 44px; /* Touch-friendly */
+    min-height: 44px;
     min-width: 44px;
-    transition: background-color 0.3s, transform 0.3s; /* Плавный переход */
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn:hover {
     background-color: #b02a6c;
-    transform: scale(1.05); /* Эффект увеличения */
+    transform: scale(1.05);
 }
 
 .btn:focus {
@@ -104,11 +115,7 @@ body {
     outline-offset: 2px;
 }
 
-/* ========== СЕТКА УСЛУГ (CSS GRID) ========== */
-.services {
-    padding: 60px 0;
-}
-
+/* ========== ОБЩИЕ ЗАГОЛОВКИ ========== */
 .section-title {
     text-align: center;
     margin-bottom: 30px;
@@ -116,27 +123,59 @@ body {
     color: #4a2c3a;
 }
 
+.section-title--left {
+    text-align: left;
+}
+
+/* ========== БЛОК О НАС ========== */
+.about {
+    padding: 60px 0;
+    background-color: #fff;
+}
+
+.about__container {
+    display: flex;
+    flex-direction: column; /* На мобильных картинка сверху, текст снизу */
+    gap: 20px;
+}
+
+.about__img {
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(214, 51, 132, 0.1);
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+/* ========== СЕТКА УСЛУГ (CSS GRID) ========== */
+.services {
+    padding: 60px 0;
+}
+
 .services__grid {
-    display: grid; /* CSS Grid */
-    grid-template-columns: 1fr; /* 1 колонка на мобильных */
-    gap: 20px; /* Отступы */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
 .card {
     background: #ffffff;
-    padding: 25px;
+    padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(214, 51, 132, 0.08);
     text-align: center;
-    transition: transform 0.3s; /* Плавный переход для карточки */
+    transition: transform 0.3s;
 }
 
 .card:hover {
     transform: scale(1.03);
 }
 
-.card__icon {
-    font-size: 2.5rem;
+.card__img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
     margin-bottom: 15px;
 }
 
@@ -150,10 +189,36 @@ body {
     font-size: 0.95rem;
 }
 
+/* ========== ГАЛЕРЕЯ (CSS GRID) ========== */
+.gallery {
+    padding: 60px 0;
+    background-color: #fff;
+}
+
+.gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 колонки на мобильных */
+    gap: 10px;
+}
+
+.gallery__img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.gallery__img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
+    position: relative;
+    z-index: 10;
+}
+
 /* ========== ФОРМА ========== */
 .contact {
     padding: 60px 0;
-    background-color: #ffffff;
 }
 
 .form {
@@ -172,7 +237,7 @@ body {
     border-radius: 8px;
     font-family: inherit;
     font-size: 1rem;
-    min-height: 44px; /* Touch-friendly */
+    min-height: 44px;
     transition: border-color 0.3s, box-shadow 0.3s;
     background-color: #fcf8fa;
 }
@@ -182,7 +247,6 @@ body {
     min-height: 100px;
 }
 
-/* Состояния :hover и :focus для полей */
 .form__input:hover,
 .form__textarea:hover {
     border-color: #d63384;
@@ -220,7 +284,6 @@ body {
         padding: 0 30px;
     }
 
-    /* Прячем гамбургер, показываем меню */
     .burger {
         display: none;
     }
@@ -246,9 +309,29 @@ body {
         color: #d63384;
     }
 
-    /* Сетка на планшете: 2 колонки */
+    /* О нас: картинка и текст встают в ряд */
+    .about__container {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .about__text {
+        flex: 1;
+    }
+
+    .about__img {
+        flex: 1;
+        height: 400px;
+    }
+
+    /* Услуги: 2 колонки */
     .services__grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Галерея: 3 колонки */
+    .gallery__grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .hero__title {
@@ -259,16 +342,21 @@ body {
 /* Десктоп (от 1200px) */
 @media (min-width: 1200px) {
     .container {
-        max-width: 1140px; /* Ограничиваем ширину контента */
+        max-width: 1140px;
     }
 
-    /* Сетка на десктопе: 3 колонки */
+    /* Услуги: 3 колонки */
     .services__grid {
         grid-template-columns: repeat(3, 1fr);
     }
 
+    /* Галерея: 4 колонки */
+    .gallery__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
     .hero {
-        padding: 100px 0;
+        padding: 120px 0;
     }
 
     .hero__title {
