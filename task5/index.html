@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Симон говорит: Котики</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game">
+        <h1>Мяу-Симон 🐾</h1>
+        <p id="status" class="status">Нажми на кнопку в центре</p>
+        
+        <div class="board" id="board">
+            <div class="sector cat-0" data-id="0">
+                <svg viewBox="0 0 100 100" class="cat-svg">
+                    <path d="M 20 40 L 15 15 L 40 30 Q 50 25 60 30 L 85 15 L 80 40 Q 90 55 85 75 Q 80 95 50 95 Q 20 95 15 75 Q 10 55 20 40 Z" />
+                    <circle cx="35" cy="55" r="3" class="eye" />
+                    <circle cx="65" cy="55" r="3" class="eye" />
+                    <path d="M 45 70 Q 50 75 55 70" class="mouth" />
+                </svg>
+            </div>
+            <div class="sector cat-1" data-id="1">
+                <svg viewBox="0 0 100 100" class="cat-svg">
+                    <path d="M 20 40 L 15 15 L 40 30 Q 50 25 60 30 L 85 15 L 80 40 Q 90 55 85 75 Q 80 95 50 95 Q 20 95 15 75 Q 10 55 20 40 Z" />
+                    <circle cx="35" cy="55" r="3" class="eye" />
+                    <circle cx="65" cy="55" r="3" class="eye" />
+                    <path d="M 45 70 Q 50 75 55 70" class="mouth" />
+                </svg>
+            </div>
+            <div class="sector cat-2" data-id="2">
+                <svg viewBox="0 0 100 100" class="cat-svg">
+                    <path d="M 20 40 L 15 15 L 40 30 Q 50 25 60 30 L 85 15 L 80 40 Q 90 55 85 75 Q 80 95 50 95 Q 20 95 15 75 Q 10 55 20 40 Z" />
+                    <circle cx="35" cy="55" r="3" class="eye" />
+                    <circle cx="65" cy="55" r="3" class="eye" />
+                    <path d="M 45 70 Q 50 75 55 70" class="mouth" />
+                </svg>
+            </div>
+            <div class="sector cat-3" data-id="3">
+                <svg viewBox="0 0 100 100" class="cat-svg">
+                    <path d="M 20 40 L 15 15 L 40 30 Q 50 25 60 30 L 85 15 L 80 40 Q 90 55 85 75 Q 80 95 50 95 Q 20 95 15 75 Q 10 55 20 40 Z" />
+                    <circle cx="35" cy="55" r="3" class="eye" />
+                    <circle cx="65" cy="55" r="3" class="eye" />
+                    <path d="M 45 70 Q 50 75 55 70" class="mouth" />
+                </svg>
+            </div>
+            
+            <button id="start-btn" class="start-btn">
+                <span>СТАРТ</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

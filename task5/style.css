@@ -1,0 +1,180 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #ecf0f1;
+    overflow: hidden;
+}
+
+.game {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 10px;
+    font-size: 2rem;
+    background: linear-gradient(90deg, #ff6b9d, #c44dff, #6bc5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.status {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    min-height: 24px;
+    color: #bdc3c7;
+    letter-spacing: 1px;
+}
+
+.board {
+    position: relative;
+    width: 360px;
+    height: 360px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1f1f3a, #2a2a4a);
+    box-shadow: 
+        0 0 60px rgba(196, 77, 255, 0.3),
+        inset 0 0 40px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 60px rgba(196, 77, 255, 0.3), inset 0 0 40px rgba(0, 0, 0, 0.5); }
+    50% { box-shadow: 0 0 80px rgba(196, 77, 255, 0.5), inset 0 0 40px rgba(0, 0, 0, 0.5); }
+}
+
+.sector {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.25s ease;
+    padding: 10px;
+}
+
+.cat-0 { top: 15px; left: 15px; }
+.cat-1 { top: 15px; right: 15px; }
+.cat-2 { bottom: 15px; left: 15px; }
+.cat-3 { bottom: 15px; right: 15px; }
+
+/* SVG-силуэт */
+.cat-svg {
+    width: 90%;
+    height: 90%;
+    transition: all 0.25s ease;
+}
+
+/* Цвета котиков */
+.cat-0 .cat-svg path:first-child { fill: #ff6b9d; }  /* Розовый */
+.cat-1 .cat-svg path:first-child { fill: #6bc5ff; }  /* Голубой */
+.cat-2 .cat-svg path:first-child { fill: #ffd93d; }  /* Жёлтый */
+.cat-3 .cat-svg path:first-child { fill: #6bff8e; }  /* Зелёный */
+
+/* Глаза и рот (изначально тёмные) */
+.eye, .mouth {
+    fill: none;
+    stroke: #1a1a2e;
+    stroke-width: 4;
+    stroke-linecap: round;
+}
+
+/* Эффект активации — котик светится белым */
+.sector.active {
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+    box-shadow: 
+        0 0 25px #fff,
+        0 0 50px #c44dff,
+        0 0 80px #ff6b9d;
+}
+
+.sector.active .cat-svg path:first-child {
+    fill: #ffffff;
+}
+
+.sector.active .eye, 
+.sector.active .mouth {
+    stroke: #c44dff;
+}
+
+.board.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+/* Кнопка в центре */
+.start-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b9d, #c44dff);
+    color: white;
+    border: 4px solid #1a1a2e;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 0 20px rgba(196, 77, 255, 0.6),
+        inset 0 -3px 10px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.start-btn:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 
+        0 0 40px rgba(196, 77, 255, 0.9),
+        inset 0 -3px 10px rgba(0,0,0,0.3);
+}
+
+.start-btn:active {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+.start-btn span {
+    display: block;
+}
+
+@media (max-width: 420px) {
+    .board {
+        width: 300px;
+        height: 300px;
+        padding: 25px;
+    }
+    .sector {
+        width: 110px;
+        height: 110px;
+    }
+    .start-btn {
+        width: 75px;
+        height: 75px;
+        font-size: 0.75rem;
+    }
+    h1 { font-size: 1.5rem; }
+}
