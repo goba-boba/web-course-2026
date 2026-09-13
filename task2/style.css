@@ -23,7 +23,7 @@ img {
     margin: 0 auto;
 }
 
-/* ========== ШАПКА (Flexbox) ========== */
+
 .header {
     background-color: #ffffff;
     box-shadow: 0 2px 5px rgba(214, 51, 132, 0.1);
