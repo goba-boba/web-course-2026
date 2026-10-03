@@ -49,21 +49,21 @@ function countBullsAndCows(secret, guess) {
 
 function render() {
     historyList.innerHTML = '';
-    
+
     history.forEach(item => {
         const li = document.createElement('li');
         const guessSpan = document.createElement('span');
         const resultSpan = document.createElement('span');
-        
+
         guessSpan.textContent = item.guess;
-        resultSpan.textContent = `${item.bulls} бык(а), ${item.cows} коров(ы)`;
-        
+        resultSpan.textContent = `🐂 ${item.bulls} · 🐄 ${item.cows}`;
+
         li.appendChild(guessSpan);
         li.appendChild(resultSpan);
         historyList.appendChild(li);
     });
 
-    attemptsCounter.textContent = `Попыток: ${attempts}`;
+    attemptsCounter.textContent = attempts;
 
     if (isGameOver) {
         input.disabled = true;
@@ -95,8 +95,8 @@ function handleCheck() {
 
     if (bulls === 4) {
         isGameOver = true;
-        errorMsg.textContent = `Победа! Угадано за ${attempts} попыток!`;
-        errorMsg.style.color = '#28a745';
+        errorMsg.textContent = `🌻 Победа! Угадано за ${attempts} попыток!`;
+        errorMsg.style.color = '#2a7d44';
     }
 
     input.value = '';
@@ -109,7 +109,7 @@ function resetGame() {
     attempts = 0;
     isGameOver = false;
     errorMsg.textContent = '';
-    errorMsg.style.color = '#dc3545';
+    errorMsg.style.color = '#b03a2e';
     input.value = '';
     input.disabled = false;
     checkBtn.disabled = false;

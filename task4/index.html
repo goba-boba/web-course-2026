@@ -3,24 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Быки и коровы</title>
+    <title>Быки и коровы — Деревенская игра</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Neucha&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="game">
-        <h1>Быки и коровы</h1>
-        <p class="rules">Компьютер загадал 4 цифры. Угадай их!<br>Бык — цифра на своём месте. Корова — цифра есть, но не на своём месте.</p>
+        <div class="game__header">
+            <span class="icon">🌾</span>
+            <h1>Быки и коровы</h1>
+            <span class="icon">🐄</span>
+        </div>
+
+        <p class="rules">
+            Компьютер загадал <strong>4 цифры</strong>. Угадай их!<br>
+            🐂 <strong>Бык</strong> — цифра на своём месте.<br>
+            🐄 <strong>Корова</strong> — цифра есть, но не на своём месте.
+        </p>
 
         <div class="input-group">
-            <input type="text" id="guess-input" maxlength="4" placeholder="Введите 4 цифры" autocomplete="off">
+            <input type="text" id="guess-input" maxlength="4" placeholder="••••" autocomplete="off" inputmode="numeric">
             <button id="check-btn">Проверить</button>
         </div>
 
         <p id="error-message" class="error"></p>
 
         <div class="stats">
-            <span id="attempts-counter">Попыток: 0</span>
+            <span class="stats__item">
+                <span class="stats__label">Попыток:</span>
+                <span class="stats__value" id="attempts-counter">0</span>
+            </span>
         </div>
 
         <ul id="history-list" class="history"></ul>
