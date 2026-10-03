@@ -7,10 +7,19 @@ const addBtn = document.getElementById('add-btn');
 const taskList = document.getElementById('task-list');
 const counter = document.getElementById('counter');
 const filterBtns = document.querySelectorAll('.filter-btn');
+const dateDisplay = document.getElementById('date-display');
+
+function setTodayDate() {
+    const months = [
+        'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+        'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+    ];
+    const today = new Date();
+    dateDisplay.textContent = `${today.getDate()} ${months[today.getMonth()]}`;
+}
 
 function addTask() {
     const text = input.value.trim();
-
     if (!text) {
         alert('Введите текст задачи!');
         return;
@@ -76,7 +85,6 @@ function render() {
 
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'delete-btn';
-        deleteBtn.textContent = 'Удалить';
         deleteBtn.addEventListener('click', () => deleteTask(task.id));
 
         li.appendChild(checkbox);
@@ -88,7 +96,7 @@ function render() {
 
     const remaining = tasks.filter(t => !t.completed).length;
     const completed = tasks.filter(t => t.completed).length;
-    counter.textContent = `Осталось: ${remaining}, Выполнено: ${completed}`;
+    counter.textContent = `Осталось: ${remaining} · Выполнено: ${completed}`;
 }
 
 addBtn.addEventListener('click', addTask);
@@ -103,4 +111,5 @@ filterBtns.forEach(btn => {
     btn.addEventListener('click', () => setFilter(btn.dataset.filter));
 });
 
+setTodayDate();
 render();

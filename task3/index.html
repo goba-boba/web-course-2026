@@ -3,26 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo-list</title>
+    <title>Todo-list — Мои задачи</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="app">
-        <h1>Мои задачи</h1>
-        
+        <div class="notebook-header">
+            <h1>Мои задачи</h1>
+            <span class="date" id="date-display"></span>
+        </div>
+
         <div class="input-group">
-            <input type="text" id="task-input" placeholder="Что нужно сделать?">
-            <button id="add-btn">Добавить</button>
+            <input type="text" id="task-input" placeholder="Записать новое дело...">
+            <button id="add-btn">✎</button>
         </div>
 
         <div class="filters" id="filters">
             <button class="filter-btn active" data-filter="all">Все</button>
             <button class="filter-btn" data-filter="active">Активные</button>
-            <button class="filter-btn" data-filter="completed">Завершённые</button>
+            <button class="filter-btn" data-filter="completed">Выполнено</button>
         </div>
 
-        <div class="counter" id="counter">Осталось: 0, Выполнено: 0</div>
+        <div class="counter" id="counter">Осталось: 0 · Выполнено: 0</div>
 
         <ul class="task-list" id="task-list"></ul>
     </div>

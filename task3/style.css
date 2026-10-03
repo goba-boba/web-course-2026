@@ -1,4 +1,3 @@
-/* Базовые сбросы */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,30 +5,71 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
+    font-family: 'PT Sans', sans-serif;
+    background-color: #d4c5a9;
+    background-image:
+        repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0 2px, transparent 2px 8px);
     display: flex;
     justify-content: center;
     padding: 40px 20px;
-    color: #333;
+    color: #1a3a6c;
+    min-height: 100vh;
 }
 
 .app {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    background-color: #fbf8f0;
+    /* Клетка через CSS */
+    background-image:
+        linear-gradient(rgba(100, 140, 200, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 140, 200, 0.25) 1px, transparent 1px);
+    background-size: 24px 24px;
+    padding: 35px 40px 40px 55px;
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
     width: 100%;
-    max-width: 500px;
+    max-width: 560px;
+    position: relative;
+    /* Красная линия слева, как в тетради */
+    border-left: 3px solid transparent;
+}
+
+.app::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40px;
+    width: 2px;
+    background-color: #e57373;
+    opacity: 0.7;
+}
+
+/* ========== ШАПКА ========== */
+.notebook-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px dashed #1a3a6c;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
 }
 
 h1 {
-    margin-bottom: 20px;
-    text-align: center;
-    color: #2c3e50;
+    font-family: 'Caveat', cursive;
+    font-size: 2.8rem;
+    color: #1a3a6c;
+    letter-spacing: 1px;
+    font-weight: 700;
 }
 
+.date {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: #e57373;
+    font-weight: 700;
+}
 
+/* ========== ВВОД ========== */
 .input-group {
     display: flex;
     gap: 10px;
@@ -38,127 +78,225 @@ h1 {
 
 #task-input {
     flex: 1;
-    padding: 10px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 10px 5px;
+    border: none;
+    border-bottom: 2px solid #1a3a6c;
+    border-radius: 0;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: #1a3a6c;
+    background: transparent;
     outline: none;
     transition: border-color 0.3s;
 }
 
+#task-input::placeholder {
+    color: #94a8c4;
+    font-style: italic;
+}
+
 #task-input:focus {
-    border-color: #007bff;
+    border-bottom-color: #e57373;
 }
 
 #add-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
+    padding: 8px 18px;
+    background: transparent;
+    color: #1a3a6c;
+    border: 2px solid #1a3a6c;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    font-size: 1.4rem;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 #add-btn:hover {
-    background-color: #0056b3;
+    background: #1a3a6c;
+    color: #fbf8f0;
+    transform: rotate(15deg);
 }
 
-
+/* ========== ФИЛЬТРЫ ========== */
 .filters {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
 .filter-btn {
-    flex: 1;
-    padding: 8px;
+    background: transparent;
+    color: #1a3a6c;
     border: none;
-    background-color: #e9ecef;
-    color: #495057;
-    border-radius: 6px;
+    padding: 4px 0;
     cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s, color 0.3s;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    position: relative;
+    transition: color 0.25s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.filter-btn:hover {
-    background-color: #dee2e6;
+.filter-btn::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: #e57373;
+    transition: width 0.3s;
+}
+
+.filter-btn:hover::after {
+    width: 100%;
 }
 
 .filter-btn.active {
-    background-color: #007bff;
-    color: white;
+    color: #e57373;
 }
 
+.filter-btn.active::after {
+    width: 100%;
+}
+
+/* ========== СЧЁТЧИК ========== */
 .counter {
-    font-size: 0.9rem;
-    color: #6c757d;
-    margin-bottom: 15px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: #e57373;
     text-align: right;
+    margin-bottom: 15px;
+    font-weight: 700;
 }
 
-
+/* ========== СПИСОК ========== */
 .task-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
 }
 
 .task-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 15px;
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    transition: opacity 0.3s, background-color 0.3s;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(100, 140, 200, 0.3);
+    transition: all 0.25s;
+    position: relative;
 }
 
 .task-item:hover {
-    background-color: #f1f3f5;
+    background: rgba(100, 140, 200, 0.08);
+    padding-left: 6px;
 }
 
+/* Чекбокс как галочка в тетради */
+.task-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #1a3a6c;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    background: transparent;
+    transition: all 0.2s;
+}
 
-.task-item.completed {
-    opacity: 0.6;
+.task-item input[type="checkbox"]:checked {
+    background: #1a3a6c;
+    border-color: #1a3a6c;
+}
+
+.task-item input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fbf8f0;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.task-text {
+    flex: 1;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: #1a3a6c;
+    word-break: break-word;
+    line-height: 1.3;
+    transition: color 0.3s;
 }
 
 .task-item.completed .task-text {
     text-decoration: line-through;
-    color: #adb5bd;
+    text-decoration-color: #e57373;
+    text-decoration-thickness: 2px;
+    color: #94a8c4;
 }
-
-
-.task-item input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-
-.task-text {
-    flex: 1;
-    font-size: 1rem;
-    word-break: break-word;
-}
-
 
 .task-item .delete-btn {
-    padding: 6px 12px;
-    background-color: #dc3545;
-    color: white;
+    padding: 4px 10px;
+    background: transparent;
+    color: #94a8c4;
     border: none;
-    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.85rem;
-    transition: background-color 0.3s;
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    opacity: 0;
+}
+
+.task-item:hover .delete-btn {
+    opacity: 1;
 }
 
 .task-item .delete-btn:hover {
-    background-color: #c82333;
+    color: #e57373;
+    transform: scale(1.2);
+}
+
+.task-item .delete-btn::before {
+    content: '✗';
+}
+
+@media (max-width: 500px) {
+    .app {
+        padding: 25px 20px 25px 35px;
+    }
+    .app::before {
+        left: 22px;
+    }
+    h1 {
+        font-size: 2.2rem;
+    }
+    .date {
+        font-size: 1.1rem;
+    }
+    .task-text {
+        font-size: 1.3rem;
+    }
+    #task-input {
+        font-size: 1.3rem;
+    }
+    .task-item .delete-btn {
+        opacity: 1;
+    }
 }
