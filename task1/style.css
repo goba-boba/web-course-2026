@@ -5,79 +5,136 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    color: #333;
-    line-height: 1.6;
-    
+    font-family: 'Nunito', sans-serif;
+    background-color: #f5ede1;
+    background-image:
+        radial-gradient(circle at 10% 15%, rgba(193, 122, 90, 0.08), transparent 40%),
+        radial-gradient(circle at 90% 85%, rgba(122, 138, 92, 0.08), transparent 40%);
+    background-attachment: fixed;
+    color: #4a3728;
+    line-height: 1.7;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    padding: 20px;
+    gap: 22px;
+    padding: 30px 20px;
+    min-height: 100vh;
 }
 
 header {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 30px;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    gap: 22px;
+    background: #fffaf1;
+    padding: 35px 30px;
+    border-radius: 20px;
+    border: 2px solid #e5d3bb;
+    box-shadow: 0 8px 30px rgba(122, 88, 60, 0.1);
     width: 100%;
     max-width: 800px;
+    text-align: center;
+    position: relative;
+}
+
+header::before {
+    content: '🌿';
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: 1.5rem;
+    opacity: 0.6;
+}
+
+header::after {
+    content: '🍄';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    opacity: 0.6;
 }
 
 .avatar {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     object-fit: cover;
+    border: 5px solid #c17a5a;
+    box-shadow: 0 6px 20px rgba(122, 88, 60, 0.2);
+    transition: transform 0.3s;
+}
+
+.avatar:hover {
+    transform: rotate(-3deg) scale(1.03);
 }
 
 .header-info {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
+    width: 100%;
+}
+
+h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #a0522d;
+    letter-spacing: 1px;
+    line-height: 1.1;
 }
 
 .job-title {
-    color: #007bff;
-    font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    color: #7a8a5c;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: lowercase;
 }
 
 .slogan {
-    color: #666;
-    font-style: italic;
+    font-family: 'Caveat', cursive;
+    font-size: 1.35rem;
+    color: #8b6f47;
+    margin-top: 12px;
+    padding: 14px 20px;
+    background: #f5ede1;
+    border-left: 4px solid #c17a5a;
+    border-radius: 10px;
+    text-align: left;
+    line-height: 1.4;
 }
 
-/* 3. Навигация */
 nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    background-color: #ffffff;
-    padding: 15px 30px;
-    border-radius: 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    gap: 12px;
+    background: #fffaf1;
+    padding: 15px 25px;
+    border-radius: 40px;
+    border: 2px solid #e5d3bb;
+    box-shadow: 0 4px 15px rgba(122, 88, 60, 0.08);
     width: 100%;
     max-width: 800px;
 }
 
 nav a {
     text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    color: #a0522d;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    transition: all 0.25s;
 }
 
 nav a:hover {
-    color: #007bff;
+    background: #c17a5a;
+    color: #fffaf1;
+    transform: translateY(-2px);
 }
 
 main {
@@ -89,68 +146,161 @@ main {
 }
 
 .card {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    background: #fffaf1;
+    padding: 28px 30px;
+    border-radius: 20px;
+    border: 2px solid #e5d3bb;
+    box-shadow: 0 8px 30px rgba(122, 88, 60, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(122, 88, 60, 0.14);
 }
 
 .card h2 {
-    margin-bottom: 15px;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 5px;
-    display: inline-block;
+    font-family: 'Caveat', cursive;
+    color: #a0522d;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+}
+
+.card p {
+    font-size: 1.02rem;
+    color: #4a3728;
+}
+
+.card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.card li {
+    padding: 10px 0 10px 30px;
+    position: relative;
+    font-size: 1rem;
+    border-bottom: 1px dashed #e5d3bb;
+}
+
+.card li:last-child {
+    border-bottom: none;
+}
+
+.card li::before {
+    content: '✿';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    color: #c17a5a;
+    font-size: 1.1rem;
 }
 
 .skills-list {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     gap: 10px;
 }
 
 .skill {
-    background-color: #e9ecef;
-    color: #495057;
-    padding: 8px 16px;
-    border-radius: 20px; 
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: background-color 0.3s;
+    background: #f5ede1;
+    color: #7a5a3a;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    border: 2px solid #e5d3bb;
+    transition: all 0.25s;
+    cursor: default;
 }
 
 .skill:hover {
-    background-color: #007bff;
-    color: white;
+    background: #c17a5a;
+    color: #fffaf1;
+    border-color: #c17a5a;
+    transform: translateY(-2px) rotate(-2deg);
+    box-shadow: 0 6px 15px rgba(122, 88, 60, 0.2);
 }
 
 footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    gap: 18px;
+    background: #fffaf1;
+    padding: 28px 30px;
+    border-radius: 20px;
+    border: 2px solid #e5d3bb;
+    box-shadow: 0 8px 30px rgba(122, 88, 60, 0.08);
     width: 100%;
     max-width: 800px;
+}
+
+footer h2 {
+    font-family: 'Caveat', cursive;
+    color: #a0522d;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .contact-links {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 14px;
 }
 
 .contact-links a {
     text-decoration: none;
-    color: #007bff;
-    font-weight: 500;
-    transition: color 0.3s, text-decoration 0.3s;
+    color: #7a5a3a;
+    font-weight: 700;
+    padding: 10px 20px;
+    background: #f5ede1;
+    border-radius: 16px;
+    border: 2px solid #e5d3bb;
+    transition: all 0.25s;
+    font-size: 0.98rem;
 }
 
 .contact-links a:hover {
-    color: #0056b3;
-    text-decoration: underline;
+    background: #c17a5a;
+    color: #fffaf1;
+    border-color: #c17a5a;
+    transform: translateY(-3px) rotate(1deg);
+    box-shadow: 0 8px 20px rgba(122, 88, 60, 0.2);
+}
+
+@media (min-width: 768px) {
+    header {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .header-info {
+        text-align: left;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 500px) {
+    h1 {
+        font-size: 2.4rem;
+    }
+    .slogan {
+        font-size: 1.2rem;
+    }
+    .card h2, footer h2 {
+        font-size: 1.7rem;
+    }
+    nav a {
+        font-size: 1.15rem;
+    }
 }
