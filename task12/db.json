@@ -1,0 +1,40 @@
+{
+  "transactions": [
+    {
+      "amount": 20,
+      "type": "income",
+      "categoryId": "3",
+      "date": "2026-10-09",
+      "comment": "ааааааааааааааааа",
+      "id": "2gaA7bhdQkY"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Еда",
+      "type": "expense"
+    },
+    {
+      "id": "2",
+      "name": "Зарплата",
+      "type": "income"
+    },
+    {
+      "id": "3",
+      "name": "Транспорт",
+      "type": "expense"
+    },
+    {
+      "id": "4",
+      "name": "Развлечения",
+      "type": "expense"
+    },
+    {
+      "id": "5",
+      "name": "Фриланс",
+      "type": "income"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
