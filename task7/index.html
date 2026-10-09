@@ -4,25 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лента постов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="app">
         <header class="app__header">
-            <h1>Лента постов</h1>
+            <h1>Лента постов 💗</h1>
             <input type="text" id="search-input" class="search-input" placeholder="Поиск по заголовку...">
         </header>
 
+        <nav class="tabs" id="tabs">
+            <button class="tab active" data-author="all">Все</button>
+            <button class="tab" data-author="1">Автор 1</button>
+            <button class="tab" data-author="2">Автор 2</button>
+            <button class="tab" data-author="3">Автор 3</button>
+            <button class="tab" data-author="4">Автор 4</button>
+            <button class="tab" data-author="5">Автор 5</button>
+        </nav>
+
         <div id="posts-list" class="posts-list"></div>
 
-        <div id="loader" class="loader hidden">
-            <div class="spinner"></div>
-            <p>Загрузка...</p>
+        <div id="skeletons" class="skeletons hidden">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
         </div>
 
         <div id="error-message" class="error-message hidden"></div>
         <div id="end-message" class="end-message hidden">Больше постов нет</div>
+    </div>
+
+    <button id="scroll-top" class="scroll-top" title="Наверх">↑</button>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal__overlay" id="modal-overlay"></div>
+        <div class="modal__content">
+            <button class="modal__close" id="modal-close">✕</button>
+            <div class="modal__header">
+                <img id="modal-avatar" class="modal__avatar" alt="Аватар">
+                <div>
+                    <span id="modal-author" class="modal__author"></span>
+                    <span id="modal-id" class="modal__id"></span>
+                </div>
+            </div>
+            <h2 id="modal-title" class="modal__title"></h2>
+            <p id="modal-body" class="modal__body"></p>
+        </div>
     </div>
 
     <script src="script.js" defer></script>
