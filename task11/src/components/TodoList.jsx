@@ -9,7 +9,7 @@ import TodoItem from './TodoItem.jsx';
  */
 function TodoList({ tasks, onToggle, onDelete }) {
     if (tasks.length === 0) {
-        return <p className="empty">Задач нет 💭</p>;
+        return <p className="empty">Задач нет</p>;
     }
 
     return (
