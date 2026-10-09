@@ -1,0 +1,81 @@
+<div class="aurora">
+  <div class="aurora__blob aurora__blob--1"></div>
+  <div class="aurora__blob aurora__blob--2"></div>
+  <div class="aurora__blob aurora__blob--3"></div>
+</div>
+
+<div class="particles">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="app">
+  <h1>Мои задачи</h1>
+
+  <div class="input-group">
+    <input
+      type="text"
+      [(ngModel)]="newTaskText"
+      (keydown.enter)="addTask()"
+      placeholder="Что нужно сделать?"
+    />
+    <button (click)="addTask()">Добавить</button>
+  </div>
+
+  <div class="filters">
+    <button
+      [class.active]="filter === 'all'"
+      (click)="setFilter('all')">Все</button>
+    <button
+      [class.active]="filter === 'active'"
+      (click)="setFilter('active')">Активные</button>
+    <button
+      [class.active]="filter === 'completed'"
+      (click)="setFilter('completed')">Завершённые</button>
+  </div>
+
+  <div class="sort">
+    <label>
+      Сортировка:
+      <select [(ngModel)]="sortBy" (ngModelChange)="setSort($event)">
+        <option value="default">Без сортировки</option>
+        <option value="alpha-asc">По алфавиту (А→Я)</option>
+        <option value="alpha-desc">По алфавиту (Я→А)</option>
+        <option value="date-desc">Сначала новые</option>
+        <option value="date-asc">Сначала старые</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="stats">
+    <span>Всего: {{ total }}</span>
+    <span>Осталось: {{ remainingCount }}</span>
+    <span>Выполнено: {{ completedCount }}</span>
+  </div>
+
+  <p *ngIf="filteredTasks.length === 0" class="empty">
+    Задач нет — самое время что-нибудь добавить
+  </p>
+
+  <ul *ngIf="filteredTasks.length > 0" class="todo-list">
+    <li
+      *ngFor="let task of filteredTasks"
+      class="todo-item"
+      [class.completed]="task.completed">
+      <label class="checkbox">
+        <input
+          type="checkbox"
+          [checked]="task.completed"
+          (change)="toggleTask(task.id)"
+        />
+        <span class="checkbox__mark"></span>
+      </label>
+      <span class="todo-text">{{ task.text }}</span>
+      <button class="delete-btn" (click)="deleteTask(task.id)" title="Удалить">
+        <span>×</span>
+      </button>
+    </li>
+  </ul>
+</div>
