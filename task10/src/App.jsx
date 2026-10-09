@@ -26,9 +26,7 @@ function App() {
 
     const toggleTask = (id) => {
         setTasks(prev =>
-            prev.map(t =>
-                t.id === id ? { ...t, completed: !t.completed } : t
-            )
+            prev.map(t => t.id === id ? { ...t, completed: !t.completed } : t)
         );
     };
 
@@ -44,7 +42,7 @@ function App() {
 
     return (
         <div className="app">
-            <h1>Мои задачи 💗</h1>
+            <h1>Мои задачи</h1>
             <TodoForm onAdd={addTask} />
             <Filters current={filter} onChange={setFilter} />
             <Stats tasks={tasks} />
