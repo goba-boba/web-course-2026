@@ -1,10 +1,61 @@
 {
-  "transactions": [],
+  "transactions": [
+    {
+      "amount": 20,
+      "type": "expense",
+      "categoryId": "5wV7J0ybyIM",
+      "date": "2026-10-15",
+      "comment": "кальянчик",
+      "id": "7QgpVQc0tpQ"
+    },
+    {
+      "amount": 5,
+      "type": "expense",
+      "categoryId": "3",
+      "date": "2026-10-09",
+      "comment": "",
+      "id": "if8YxZ90_Rc"
+    },
+    {
+      "amount": 200,
+      "type": "income",
+      "categoryId": "1",
+      "date": "2026-10-09",
+      "comment": "ресторанчик",
+      "id": "S_gemAUhVQY"
+    }
+  ],
   "categories": [
-    { "id": "1", "name": "Еда", "type": "expense" },
-    { "id": "2", "name": "Зарплата", "type": "income" },
-    { "id": "3", "name": "Транспорт", "type": "expense" },
-    { "id": "4", "name": "Развлечения", "type": "expense" },
-    { "id": "5", "name": "Фриланс", "type": "income" }
-  ]
+    {
+      "id": "1",
+      "name": "Еда",
+      "type": "expense"
+    },
+    {
+      "id": "2",
+      "name": "Зарплата",
+      "type": "income"
+    },
+    {
+      "id": "3",
+      "name": "Транспорт",
+      "type": "expense"
+    },
+    {
+      "id": "4",
+      "name": "Развлечения",
+      "type": "expense"
+    },
+    {
+      "id": "5",
+      "name": "Фриланс",
+      "type": "income"
+    },
+    {
+      "name": "кальянчик",
+      "type": "expense",
+      "id": "5wV7J0ybyIM"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
