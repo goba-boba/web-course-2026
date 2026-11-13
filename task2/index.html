@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ru">
+<!-- head это служебная часть, на странице её не видно. тут кодировка utf-8 чтобы кириллица читалась нормально, viewport для мобильных,
+title для вкладки, подключение style.css -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,9 @@
         <div class="container header__container">
             <a href="#" class="logo">NailStudio 💅</a>
 
+            <!-- скрытый чекбокс - хранит состояние меню но сам не виден -->
             <input type="checkbox" id="burger-toggle" class="burger-toggle">
+            <!-- label связан с чекбоксом через for - клик по бургеру это клик по чекбоксу -->
             <label for="burger-toggle" class="burger" aria-label="Открыть меню">
                 <span></span>
                 <span></span>
@@ -21,6 +24,7 @@
 
             <nav class="nav">
                 <ul class="nav__list">
+                    <!-- якорные ссылки - скроллят к секции с таким id -->
                     <li><a href="#about" class="nav__link">О нас</a></li>
                     <li><a href="#services" class="nav__link">Услуги</a></li>
                     <li><a href="#gallery" class="nav__link">Работы</a></li>
@@ -39,6 +43,7 @@
             </div>
         </section>
 
+        <!-- у секций about services gallery contact есть id - на них ведут ссылки из шапки -->
         <section id="about" class="about">
             <div class="container about__container">
                 <img src="img/2.jpg" alt="Наш мастер за работой" class="about__img">
@@ -53,6 +58,7 @@
             <div class="container">
                 <h2 class="section-title">Наши услуги</h2>
                 <div class="services__grid">
+                    <!-- article это самостоятельная единица контента -->
                     <article class="card">
                         <img src="img/3.jpg" alt="Классический маникюр" class="card__img">
                         <h3 class="card__title">Классический маникюр</h3>
@@ -87,12 +93,14 @@
         <section id="contact" class="contact">
             <div class="container">
                 <h2 class="section-title">Записаться на процедуру</h2>
+                <!-- у полей есть name - по нему js достаёт значение. id формы нужен чтобы js её нашёл -->
                 <form class="form" id="booking-form">
                     <input type="text" name="name" placeholder="Ваше имя" class="form__input" required>
                     <input type="tel" name="phone" placeholder="Ваш телефон" class="form__input" required>
                     <textarea name="message" placeholder="Пожелания к дизайну (необязательно)" class="form__textarea"></textarea>
                     <button type="submit" class="btn btn--form">Отправить заявку</button>
                 </form>
+                <!-- сообщение об успехе - изначально скрыто через css, js показывает его добавив класс visible -->
                 <p class="form-success" id="form-success">Спасибо! Мы свяжемся с вами в ближайшее время 💗</p>
             </div>
         </section>
@@ -100,10 +108,12 @@
 
     <footer class="footer">
         <div class="container">
+            <!-- &copy; это символ копирайта -->
             <p>&copy; 2026 NailStudio. Красота в деталях.</p>
         </div>
     </footer>
 
+    <!-- скрипт в конце body - html уже построен, элементы точно есть -->
     <script src="script.js"></script>
 </body>
 </html>
