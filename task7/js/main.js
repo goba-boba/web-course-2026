@@ -1,26 +1,27 @@
 import { fetchPosts } from './api.js';
 import { loadLikes, toggleLike } from './storage.js';
-import { shuffle, expandPosts } from './utils.js';
+import { getAvatarUrl } from './utils.js';
 import * as ui from './ui.js';
 
 const SCROLL_THRESHOLD = 200;
 const DEBOUNCE_DELAY = 300;
-const INITIAL_VISIBLE = 20;
-const PORTION_SIZE = 10;
-const COPIES_PER_POST = 3;
+const POSTS_PER_PAGE = 10; // Подгружаем по 10 штук
+const MAX_POSTS = 100;     // Всего в API 100 постов
 
-let allPosts = [];
-let visibleCount = INITIAL_VISIBLE;
+let allPosts = [];          // Сюда собираем всё, что загрузили
+let currentPage = 0;        // Текущая страница (для запроса)
 let searchQuery = '';
 let currentAuthor = 'all';
 let debounceTimer = null;
 let isLoading = false;
+let isEndReached = false;   // Флаг: данные закончились
 
 const searchInput = document.getElementById('search-input');
 const tabs = document.querySelectorAll('.tab');
 const scrollTopBtn = document.getElementById('scroll-top');
 
 function getFilteredPosts() {
+    // Фильтруем по автору и поиску
     return allPosts.filter(post => {
         const matchesAuthor = currentAuthor === 'all' || String(post.userId) === String(currentAuthor);
         const matchesSearch = searchQuery.trim() === '' ||
@@ -30,33 +31,45 @@ function getFilteredPosts() {
 }
 
 function render() {
+    // Теперь мы просто показываем ВСЕ загруженные посты, которые подходят под фильтр
     const filtered = getFilteredPosts();
-    const visible = filtered.slice(0, visibleCount);
-    ui.renderPosts(visible);
+    ui.renderPosts(filtered);
 
-    const allShown = visibleCount >= filtered.length;
-    if (allShown && currentAuthor === 'all' && searchQuery.trim() === '') {
+    // Показываем сообщение, если всё загружено (100 постов) и фильтр "Все"
+    if (isEndReached && currentAuthor === 'all' && searchQuery.trim() === '') {
         ui.showEnd();
     } else {
         ui.hideEnd();
     }
 }
 
-async function loadAllPosts() {
-    if (isLoading) return;
+// Загрузка порции постов
+async function loadNextPortion() {
+    if (isLoading || isEndReached) return;
     isLoading = true;
-    ui.showSkeletons();
+    
+    // Показываем скелетоны ТОЛЬКО если это первая загрузка, 
+    // чтобы не было мерцания экрана при скролле
+    if (currentPage === 0) ui.showSkeletons();
     ui.hideError();
 
     try {
-        const posts = await fetchPosts();
-        const expanded = expandPosts(posts, COPIES_PER_POST);
-        allPosts = shuffle(expanded);
+        const start = currentPage * POSTS_PER_PAGE;
+        const posts = await fetchPosts(start, POSTS_PER_PAGE);
+        
+        if (posts.length === 0 || allPosts.length + posts.length >= MAX_POSTS) {
+            isEndReached = true;
+        }
+
+        allPosts = [...allPosts, ...posts];
+        currentPage++;
+        
     } catch (error) {
         ui.showError(`Не удалось загрузить посты: ${error.message}`);
     } finally {
         isLoading = false;
         ui.hideSkeletons();
+        render();
     }
 }
 
@@ -70,11 +83,11 @@ function handleScroll() {
         scrollTopBtn.classList.remove('visible');
     }
 
+    // Если до низа осталось 200px — грузим следующую порцию
     if (documentHeight - scrollPosition < SCROLL_THRESHOLD) {
-        const filtered = getFilteredPosts();
-        if (visibleCount < filtered.length) {
-            visibleCount += PORTION_SIZE;
-            render();
+        // Загружаем только если фильтр "Все" и нет поиска, иначе грузить бессмысленно
+        if (currentAuthor === 'all' && searchQuery === '') {
+            loadNextPortion();
         }
     }
 }
@@ -83,7 +96,6 @@ function handleSearchInput(event) {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
         searchQuery = event.target.value;
-        visibleCount = INITIAL_VISIBLE;
         render();
     }, DEBOUNCE_DELAY);
 }
@@ -92,7 +104,6 @@ function handleTabClick(event) {
     tabs.forEach(t => t.classList.remove('active'));
     event.target.classList.add('active');
     currentAuthor = event.target.dataset.author;
-    visibleCount = INITIAL_VISIBLE;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     render();
 }
@@ -113,8 +124,7 @@ ui.initUI({
 
 async function init() {
     loadLikes();
-    await loadAllPosts();
-    render();
+    await loadNextPortion(); // Загружаем первую порцию при старте
 }
 
 init();
