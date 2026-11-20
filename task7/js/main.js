@@ -1,27 +1,26 @@
 import { fetchPosts } from './api.js';
 import { loadLikes, toggleLike } from './storage.js';
-import { getAvatarUrl } from './utils.js';
+import { shuffle } from './utils.js'; // <-- ДОБАВИЛИ ИМПОРТ SHUFFLE
 import * as ui from './ui.js';
 
-const SCROLL_THRESHOLD = 200;
 const DEBOUNCE_DELAY = 300;
-const POSTS_PER_PAGE = 10; // Подгружаем по 10 штук
-const MAX_POSTS = 100;     // Всего в API 100 постов
+const POSTS_PER_PAGE = 30; // <-- УВЕЛИЧИЛИ до 30, чтобы захватить 3 авторов
+const MAX_POSTS = 100;     
 
-let allPosts = [];          // Сюда собираем всё, что загрузили
-let currentPage = 0;        // Текущая страница (для запроса)
+let allPosts = [];          
+let currentPage = 0;        
 let searchQuery = '';
 let currentAuthor = 'all';
 let debounceTimer = null;
 let isLoading = false;
-let isEndReached = false;   // Флаг: данные закончились
+let isEndReached = false;   
 
 const searchInput = document.getElementById('search-input');
 const tabs = document.querySelectorAll('.tab');
 const scrollTopBtn = document.getElementById('scroll-top');
+const sentinel = document.getElementById('sentinel');
 
 function getFilteredPosts() {
-    // Фильтруем по автору и поиску
     return allPosts.filter(post => {
         const matchesAuthor = currentAuthor === 'all' || String(post.userId) === String(currentAuthor);
         const matchesSearch = searchQuery.trim() === '' ||
@@ -31,11 +30,9 @@ function getFilteredPosts() {
 }
 
 function render() {
-    // Теперь мы просто показываем ВСЕ загруженные посты, которые подходят под фильтр
     const filtered = getFilteredPosts();
     ui.renderPosts(filtered);
 
-    // Показываем сообщение, если всё загружено (100 постов) и фильтр "Все"
     if (isEndReached && currentAuthor === 'all' && searchQuery.trim() === '') {
         ui.showEnd();
     } else {
@@ -43,13 +40,10 @@ function render() {
     }
 }
 
-// Загрузка порции постов
 async function loadNextPortion() {
     if (isLoading || isEndReached) return;
     isLoading = true;
     
-    // Показываем скелетоны ТОЛЬКО если это первая загрузка, 
-    // чтобы не было мерцания экрана при скролле
     if (currentPage === 0) ui.showSkeletons();
     ui.hideError();
 
@@ -57,11 +51,15 @@ async function loadNextPortion() {
         const start = currentPage * POSTS_PER_PAGE;
         const posts = await fetchPosts(start, POSTS_PER_PAGE);
         
-        if (posts.length === 0 || allPosts.length + posts.length >= MAX_POSTS) {
+        // --- ГЛАВНОЕ ИЗМЕНЕНИЕ: Перемешиваем новую порцию ---
+        const shuffledPosts = shuffle(posts);
+        
+        if (shuffledPosts.length === 0 || allPosts.length + shuffledPosts.length >= MAX_POSTS) {
             isEndReached = true;
         }
 
-        allPosts = [...allPosts, ...posts];
+        // Добавляем перемешанные посты к общему списку
+        allPosts = [...allPosts, ...shuffledPosts];
         currentPage++;
         
     } catch (error) {
@@ -73,29 +71,22 @@ async function loadNextPortion() {
     }
 }
 
-function handleScroll() {
-    const scrollPosition = window.innerHeight + window.scrollY;
-    const documentHeight = document.documentElement.scrollHeight;
-
-    if (window.scrollY > 400) {
-        scrollTopBtn.classList.add('visible');
-    } else {
-        scrollTopBtn.classList.remove('visible');
-    }
-
-    // Если до низа осталось 200px — грузим следующую порцию
-    if (documentHeight - scrollPosition < SCROLL_THRESHOLD) {
-        // Загружаем только если фильтр "Все" и нет поиска, иначе грузить бессмысленно
+// Настройка слежки за низом страницы
+const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
         if (currentAuthor === 'all' && searchQuery === '') {
             loadNextPortion();
         }
     }
-}
+}, { rootMargin: '200px' });
+
+observer.observe(sentinel);
 
 function handleSearchInput(event) {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
         searchQuery = event.target.value;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         render();
     }, DEBOUNCE_DELAY);
 }
@@ -112,7 +103,14 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-window.addEventListener('scroll', handleScroll);
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+        scrollTopBtn.classList.add('visible');
+    } else {
+        scrollTopBtn.classList.remove('visible');
+    }
+});
+
 searchInput.addEventListener('input', handleSearchInput);
 tabs.forEach(tab => tab.addEventListener('click', handleTabClick));
 scrollTopBtn.addEventListener('click', scrollToTop);
@@ -124,7 +122,7 @@ ui.initUI({
 
 async function init() {
     loadLikes();
-    await loadNextPortion(); // Загружаем первую порцию при старте
+    await loadNextPortion();
 }
 
 init();
