@@ -1,10 +1,10 @@
 import { fetchPosts } from './api.js';
 import { loadLikes, toggleLike } from './storage.js';
-import { shuffle } from './utils.js'; // <-- ДОБАВИЛИ ИМПОРТ SHUFFLE
+import { shuffle } from './utils.js'; 
 import * as ui from './ui.js';
 
 const DEBOUNCE_DELAY = 300;
-const POSTS_PER_PAGE = 30; // <-- УВЕЛИЧИЛИ до 30, чтобы захватить 3 авторов
+const POSTS_PER_PAGE = 30; 
 const MAX_POSTS = 100;     
 
 let allPosts = [];          
@@ -33,7 +33,8 @@ function render() {
     const filtered = getFilteredPosts();
     ui.renderPosts(filtered);
 
-    if (isEndReached && currentAuthor === 'all' && searchQuery.trim() === '') {
+    // УБРАЛИ currentAuthor === 'all': теперь надпись появится на любой вкладке
+    if (isEndReached && searchQuery.trim() === '') {
         ui.showEnd();
     } else {
         ui.hideEnd();
@@ -51,18 +52,22 @@ async function loadNextPortion() {
         const start = currentPage * POSTS_PER_PAGE;
         const posts = await fetchPosts(start, POSTS_PER_PAGE);
         
-        // --- ГЛАВНОЕ ИЗМЕНЕНИЕ: Перемешиваем новую порцию ---
+        if (!posts || posts.length === 0) {
+            isEndReached = true;
+            return;
+        }
+
         const shuffledPosts = shuffle(posts);
         
-        if (shuffledPosts.length === 0 || allPosts.length + shuffledPosts.length >= MAX_POSTS) {
+        if (allPosts.length + shuffledPosts.length >= MAX_POSTS) {
             isEndReached = true;
         }
 
-        // Добавляем перемешанные посты к общему списку
         allPosts = [...allPosts, ...shuffledPosts];
         currentPage++;
         
     } catch (error) {
+        console.error(error);
         ui.showError(`Не удалось загрузить посты: ${error.message}`);
     } finally {
         isLoading = false;
@@ -71,10 +76,10 @@ async function loadNextPortion() {
     }
 }
 
-// Настройка слежки за низом страницы
 const observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
-        if (currentAuthor === 'all' && searchQuery === '') {
+        // УБРАЛИ currentAuthor === 'all': теперь скролл работает на вкладках авторов
+        if (searchQuery === '') {
             loadNextPortion();
         }
     }
