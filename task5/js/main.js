@@ -18,9 +18,9 @@ async function playSequence() {
     for (let i = 0; i < sequence.length; i++) {
         const sectorId = sequence[i];
         ui.highlightSector(sectorId);
-        await sleep(500); // Горит 500мс
+        await sleep(300); // Горит 500мс
         ui.unhighlightSector(sectorId);
-        await sleep(250); // Пауза между вспышками
+        await sleep(150); // Пауза между вспышками
     }
 
     ui.updateStatus('Ваш ход!');
