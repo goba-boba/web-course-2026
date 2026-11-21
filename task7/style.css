@@ -94,7 +94,6 @@ h1 {
     box-shadow: 0 6px 18px rgba(214, 51, 132, 0.35);
 }
 
-/* ========== СПИСОК ПОСТОВ ========== */
 .posts-list {
     display: flex;
     flex-direction: column;
@@ -125,7 +124,6 @@ h1 {
     transition: width 0.3s;
 }
 
-/* Цвета по авторам */
 .post-card[data-author="1"]::before { background: #ff8fab; }
 .post-card[data-author="2"]::before { background: #c77dff; }
 .post-card[data-author="3"]::before { background: #7dd3fc; }
@@ -235,7 +233,6 @@ h1 {
     line-height: 1.5;
 }
 
-/* ========== СКЕЛЕТОНЫ ========== */
 .skeletons {
     display: flex;
     flex-direction: column;
@@ -255,10 +252,7 @@ h1 {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(255, 227, 238, 0.7) 50%,
-        transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 227, 238, 0.7) 50%, transparent 100%);
     transform: translateX(-100%);
     animation: shimmer 1.5s infinite;
 }
@@ -280,7 +274,6 @@ h1 {
     border-radius: 6px;
 }
 
-/* ========== КНОПКА НАВЕРХ ========== */
 .scroll-top {
     position: fixed;
     right: 25px;
@@ -313,7 +306,23 @@ h1 {
     box-shadow: 0 10px 30px rgba(214, 51, 132, 0.55);
 }
 
-/* ========== СООБЩЕНИЯ ========== */
+/* Индикатор загрузки */
+.loading-indicator {
+    text-align: center;
+    padding: 25px;
+    color: #d63384;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
 .error-message {
     background-color: #ffe3ee;
     color: #b02a6c;
@@ -344,7 +353,6 @@ h1 {
     display: none;
 }
 
-/* ========== МОДАЛКА ========== */
 .modal {
     position: fixed;
     inset: 0;
@@ -355,9 +363,7 @@ h1 {
     padding: 20px;
 }
 
-.modal.hidden {
-    display: none;
-}
+.modal.hidden { display: none; }
 
 .modal__overlay {
     position: absolute;
@@ -461,25 +467,9 @@ h1 {
 }
 
 @media (max-width: 500px) {
-    h1 {
-        font-size: 1.5rem;
-    }
-    .post-card {
-        padding: 16px;
-        padding-left: 20px;
-    }
-    .tab {
-        padding: 9px 18px;
-        font-size: 0.9rem;
-    }
-    .scroll-top {
-        right: 15px;
-        bottom: 15px;
-        width: 44px;
-        height: 44px;
-        font-size: 1.2rem;
-    }
-    .modal__content {
-        padding: 22px;
-    }
+    h1 { font-size: 1.5rem; }
+    .post-card { padding: 16px; padding-left: 20px; }
+    .tab { padding: 9px 18px; font-size: 0.9rem; }
+    .scroll-top { right: 15px; bottom: 15px; width: 44px; height: 44px; font-size: 1.2rem; }
+    .modal__content { padding: 22px; }
 }

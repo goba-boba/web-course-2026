@@ -1,5 +1,4 @@
 const LIKES_KEY = 'task7-likes';
-
 let likes = {};
 
 export function loadLikes() {
@@ -27,9 +26,6 @@ export function toggleLike(postId) {
         return false;
     }
     likes[id] = true;
+    saveLikes();
     return true;
-}
-
-export function getLikes() {
-    return likes;
 }

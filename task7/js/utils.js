@@ -11,29 +11,6 @@ export function shuffle(arr) {
     return copy;
 }
 
-export function expandPosts(posts, copies) {
-    const expanded = [];
-    let newId = 1;
-
-    posts.forEach(post => {
-        for (let copy = 1; copy <= copies; copy++) {
-            expanded.push({
-                ...post,
-                id: newId++,
-                originalId: post.id,
-                title: copy === 1
-                    ? post.title
-                    : `${post.title} · часть ${copy}`,
-                body: copy === 1
-                    ? post.body
-                    : `${post.body}\n\n(продолжение истории, часть ${copy})`
-            });
-        }
-    });
-
-    return expanded;
-}
-
 export function getBaseLikes(postId) {
     return 5 + (postId * 3) % 50;
 }

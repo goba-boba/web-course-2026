@@ -7,6 +7,7 @@ let onCardClick = null;
 const el = {
     postsList: document.getElementById('posts-list'),
     skeletons: document.getElementById('skeletons'),
+    loadingIndicator: document.getElementById('loading-indicator'),
     errorMessage: document.getElementById('error-message'),
     endMessage: document.getElementById('end-message'),
     modal: document.getElementById('modal'),
@@ -24,30 +25,14 @@ export function initUI(handlers) {
     onCardClick = handlers.onCardClick;
 }
 
-export function showSkeletons() {
-    el.skeletons.classList.remove('hidden');
-}
-
-export function hideSkeletons() {
-    el.skeletons.classList.add('hidden');
-}
-
-export function showError(message) {
-    el.errorMessage.textContent = message;
-    el.errorMessage.classList.remove('hidden');
-}
-
-export function hideError() {
-    el.errorMessage.classList.add('hidden');
-}
-
-export function showEnd() {
-    el.endMessage.classList.remove('hidden');
-}
-
-export function hideEnd() {
-    el.endMessage.classList.add('hidden');
-}
+export function showSkeletons() { el.skeletons.classList.remove('hidden'); }
+export function hideSkeletons() { el.skeletons.classList.add('hidden'); }
+export function showLoading() { el.loadingIndicator.classList.remove('hidden'); }
+export function hideLoading() { el.loadingIndicator.classList.add('hidden'); }
+export function showError(msg) { el.errorMessage.textContent = msg; el.errorMessage.classList.remove('hidden'); }
+export function hideError() { el.errorMessage.classList.add('hidden'); }
+export function showEnd() { el.endMessage.classList.remove('hidden'); }
+export function hideEnd() { el.endMessage.classList.add('hidden'); }
 
 function createPostCard(post) {
     const card = document.createElement('article');
@@ -60,7 +45,6 @@ function createPostCard(post) {
     const avatar = document.createElement('img');
     avatar.className = 'post-card__avatar';
     avatar.src = getAvatarUrl(post.userId);
-    avatar.alt = `Аватар автора ${post.userId}`;
     avatar.loading = 'lazy';
 
     const authorInfo = document.createElement('div');
@@ -97,7 +81,6 @@ function createPostCard(post) {
         const liked = onLikeClick(post.id);
         likeBtn.classList.toggle('liked', liked);
         countSpan.textContent = getBaseLikes(post.id) + (liked ? 1 : 0);
-
         heartSpan.style.animation = 'none';
         void heartSpan.offsetWidth;
         heartSpan.style.animation = '';
@@ -126,7 +109,6 @@ function createPostCard(post) {
 
 export function renderPosts(posts) {
     el.postsList.innerHTML = '';
-
     if (posts.length === 0) {
         const emptyMsg = document.createElement('p');
         emptyMsg.className = 'end-message';
@@ -136,9 +118,7 @@ export function renderPosts(posts) {
     }
 
     const fragment = document.createDocumentFragment();
-    posts.forEach(post => {
-        fragment.appendChild(createPostCard(post));
-    });
+    posts.forEach(post => fragment.appendChild(createPostCard(post)));
     el.postsList.appendChild(fragment);
 }
 
@@ -159,6 +139,4 @@ export function closeModal() {
 
 el.modalOverlay.addEventListener('click', closeModal);
 el.modalClose.addEventListener('click', closeModal);
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });

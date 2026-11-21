@@ -1,19 +1,19 @@
 import { fetchPosts } from './api.js';
 import { loadLikes, toggleLike } from './storage.js';
-import { shuffle } from './utils.js'; 
+import { shuffle } from './utils.js';
 import * as ui from './ui.js';
 
 const DEBOUNCE_DELAY = 300;
-const POSTS_PER_PAGE = 30; 
-const MAX_POSTS = 100;     
+const POSTS_PER_PAGE = 30;
+const MAX_POSTS = 100;
 
-let allPosts = [];          
-let currentPage = 0;        
+let allPosts = [];
+let currentPage = 0;
 let searchQuery = '';
 let currentAuthor = 'all';
 let debounceTimer = null;
 let isLoading = false;
-let isEndReached = false;   
+let isEndReached = false;
 
 const searchInput = document.getElementById('search-input');
 const tabs = document.querySelectorAll('.tab');
@@ -23,8 +23,7 @@ const sentinel = document.getElementById('sentinel');
 function getFilteredPosts() {
     return allPosts.filter(post => {
         const matchesAuthor = currentAuthor === 'all' || String(post.userId) === String(currentAuthor);
-        const matchesSearch = searchQuery.trim() === '' ||
-            post.title.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = searchQuery.trim() === '' || post.title.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesAuthor && matchesSearch;
     });
 }
@@ -33,7 +32,6 @@ function render() {
     const filtered = getFilteredPosts();
     ui.renderPosts(filtered);
 
-    // УБРАЛИ currentAuthor === 'all': теперь надпись появится на любой вкладке
     if (isEndReached && searchQuery.trim() === '') {
         ui.showEnd();
     } else {
@@ -44,41 +42,43 @@ function render() {
 async function loadNextPortion() {
     if (isLoading || isEndReached) return;
     isLoading = true;
-    
-    if (currentPage === 0) ui.showSkeletons();
+
+    if (currentPage === 0) {
+        ui.showSkeletons();
+    } else {
+        ui.showLoading();
+    }
     ui.hideError();
 
     try {
         const start = currentPage * POSTS_PER_PAGE;
         const posts = await fetchPosts(start, POSTS_PER_PAGE);
-        
+
         if (!posts || posts.length === 0) {
             isEndReached = true;
             return;
         }
 
         const shuffledPosts = shuffle(posts);
-        
         if (allPosts.length + shuffledPosts.length >= MAX_POSTS) {
             isEndReached = true;
         }
 
         allPosts = [...allPosts, ...shuffledPosts];
         currentPage++;
-        
     } catch (error) {
         console.error(error);
         ui.showError(`Не удалось загрузить посты: ${error.message}`);
     } finally {
         isLoading = false;
         ui.hideSkeletons();
+        ui.hideLoading();
         render();
     }
 }
 
 const observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
-        // УБРАЛИ currentAuthor === 'all': теперь скролл работает на вкладках авторов
         if (searchQuery === '') {
             loadNextPortion();
         }
