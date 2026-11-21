@@ -49,7 +49,7 @@ async function loadNextPortion() {
         ui.showLoading();
     }
     ui.hideError();
-
+    await new Promise(resolve => setTimeout(resolve, 1000));
     try {
         const start = currentPage * POSTS_PER_PAGE;
         const posts = await fetchPosts(start, POSTS_PER_PAGE);
